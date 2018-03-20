@@ -2,17 +2,21 @@ bool almostIncreasingSequence(std::vector<int> sequence) {
 
     int count = 0;
     
-    for(std::vector<int>::size_type i = 0; i < sequence.size()-1; i++)
+    for(int index = 0; index < sequence.size()-1; index++)
     {
-        if(i > 0 &&
-           i < sequence.size()-2 &&
-           sequence.at(i) >= sequence.at(i+1) && 
-           sequence.at(i) >= sequence.at(i+2) &&
-           sequence.at(i-1) >= sequence.at(i+1))
-        {
-            return false;
+        bool currentIsBiggerThanNext = sequence.at(index) >= sequence.at(index+1);
+        bool notAccessOutOfArray = index > 0 && index < sequence.size()-2;
+        
+        if ( notAccessOutOfArray ) {
+            bool currentIsBiggerThanNextTwo = currentIsBiggerThanNext && sequence.at(index) >= sequence.at(index+2);
+            bool previousIsBiggerThanNext = sequence.at(index-1) >= sequence.at(index+1);
+            
+            if(currentIsBiggerThanNextTwo && previousIsBiggerThanNext) {
+                return false;
+            }
         }
-        else if(sequence.at(i) >= sequence.at(i+1)) count++;
+        
+        if(currentIsBiggerThanNext) count++;
         
         if(count > 1) return false;
     }

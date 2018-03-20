@@ -1,22 +1,18 @@
 int matrixElementsSum(int[][] matrix) {
 
-    //new variables to allocate the value of row and de column... cuz i'm lazy
-    int row = matrix.length;
-    int col = matrix[0].length;
     //an array of booleans to know when a zero is found
-    boolean[] zeroColumnFound = new boolean[col];
+    boolean[] zeroColumnFound = new boolean[matrix[0].length];
     int result = 0;
     
-    //goes through the matrix
-    for(int i = 0; i < row; i++)
+    for(int row = 0; row < matrix.length; row++)
     {
-        for(int j = 0; j < col; j++)
+        for(int j = 0; j < matrix[0].length; j++)
         {
-            //if no zero was located in this column yet, but there is an zero in this postion of the matrix 
-            //the position in "zeroColumnFound" is updated
-            if(zeroColumnFound[j] == false && matrix[i][j] == 0) zeroColumnFound[j] = true;
-            //if there is no zero so far(in this column), the result is updated
-            else if(zeroColumnFound[j] == false) result += matrix[i][j];
+            boolean canAcessThisTile = zeroColumnFound[j] == false;
+            boolean tileHasValueZero = matrix[row][j] == 0;
+            
+            if(canAcessThisTile && tileHasValueZero) zeroColumnFound[j] = true;
+            else if(canAcessThisTile) result += matrix[row][j];
         }
     }
     

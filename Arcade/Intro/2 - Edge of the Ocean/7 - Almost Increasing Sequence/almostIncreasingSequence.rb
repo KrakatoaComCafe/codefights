@@ -4,14 +4,19 @@ def almostIncreasingSequence(sequence)
     i = (sequence.length) -1
     i.times do |pos| 
         
-        if pos > 0 && pos < (sequence.length)-2 &&
-           sequence[pos] >= sequence[pos+1] &&
-           sequence[pos] >= sequence[pos+2] &&
-           sequence[pos-1] >= sequence[pos+1]
-            return false
+        not_access_out_of_array = sequence[pos+2] != nil
+        if not_access_out_of_array
+            
+            bigger_than_the_next_two = (sequence[pos] >= sequence[pos+1]) && (sequence[pos] >= sequence[pos+2])
+            previous_is_bigger_than_next = (sequence[pos-1] >= sequence[pos+1])
+
+            if pos > 0 && bigger_than_the_next_two && previous_is_bigger_than_next
+                return false
+            end
         end
         
-        count += 1 if sequence[pos] >= sequence[pos+1]
+        bigger_than_nex = sequence[pos] >= sequence[pos+1]
+        count += 1 if bigger_than_nex
         return false if count > 1
     end
     
